@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/multi-style-layer.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/MirfaCoralReefs_1.js"></script>
+        <script src="data/MirfaPreOpsurveysdoneFLAG_2.js"></script>
+        <script src="data/MirfaMonitoringOpSurveysdoneFLAG_3.js"></script>
+        <script src="data/MirfaPostOpSurveysdoneFLAG_4.js"></script>
+        <script>
+        var highlightLayer;
+        function highlightFeature(e) {
+            highlightLayer = e.target;
+            highlightLayer.openPopup();
+        }
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[23.632690193902228,52.36332082595392],[24.80104560095051,54.587471647708746]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_BaseMapStamenWatercolor_0');
+        map.getPane('pane_BaseMapStamenWatercolor_0').style.zIndex = 400;
+        var img_BaseMapStamenWatercolor_0 = 'data/BaseMapStamenWatercolor_0.png';
+        var img_bounds_BaseMapStamenWatercolor_0 = [[22.153443447379072,49.21020149942891],[26.837360570608922,58.19779682822087]];
+        var layer_BaseMapStamenWatercolor_0 = new L.imageOverlay(img_BaseMapStamenWatercolor_0,
+                                              img_bounds_BaseMapStamenWatercolor_0,
+                                              {pane: 'pane_BaseMapStamenWatercolor_0'});
+        bounds_group.addLayer(layer_BaseMapStamenWatercolor_0);
+        map.addLayer(layer_BaseMapStamenWatercolor_0);
+        function pop_MirfaCoralReefs_1(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['HabitatT_1'] !== null ? autolinker.link(feature.properties['HabitatT_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Pre Surveys</strong><br />' + (feature.properties['PreSurveys'] !== null ? autolinker.link(feature.properties['PreSurveys'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_MirfaCoralReefs_1_0() {
+            return {
+                pane: 'pane_MirfaCoralReefs_1',
+                opacity: 1,
+                color: 'rgba(128,62,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,147,0,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_MirfaCoralReefs_1');
+        map.getPane('pane_MirfaCoralReefs_1').style.zIndex = 401;
+        map.getPane('pane_MirfaCoralReefs_1').style['mix-blend-mode'] = 'normal';
+        var layer_MirfaCoralReefs_1 = new L.geoJson(json_MirfaCoralReefs_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_MirfaCoralReefs_1',
+            layerName: 'layer_MirfaCoralReefs_1',
+            pane: 'pane_MirfaCoralReefs_1',
+            onEachFeature: pop_MirfaCoralReefs_1,
+            style: style_MirfaCoralReefs_1_0,
+        });
+        bounds_group.addLayer(layer_MirfaCoralReefs_1);
+        map.addLayer(layer_MirfaCoralReefs_1);
+        function pop_MirfaPreOpsurveysdoneFLAG_2(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Label'] !== null ? autolinker.link(feature.properties['Label'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Pre Surveys</strong><br />' + (feature.properties['PRE_Survey'] !== null ? autolinker.link(feature.properties['PRE_Survey'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        var pattern_MirfaPreOpsurveysdoneFLAG_2_0 = new L.StripePattern({
+            weight: 0.7,
+            spaceWeight: 2.0,
+            color: '#af1313',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 315
+        });
+        pattern_MirfaPreOpsurveysdoneFLAG_2_0.addTo(map);
+        function style_MirfaPreOpsurveysdoneFLAG_2_0() {
+            return {
+                pane: 'pane_MirfaPreOpsurveysdoneFLAG_2',
+                stroke: false,
+                fillOpacity: 1,
+                fillPattern: pattern_MirfaPreOpsurveysdoneFLAG_2_0,
+                interactive: true,
+            }
+        }
+        function style_MirfaPreOpsurveysdoneFLAG_2_1() {
+            return {
+                pane: 'pane_MirfaPreOpsurveysdoneFLAG_2',
+                opacity: 1,
+                color: 'rgba(175,19,19,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_MirfaPreOpsurveysdoneFLAG_2');
+        map.getPane('pane_MirfaPreOpsurveysdoneFLAG_2').style.zIndex = 402;
+        map.getPane('pane_MirfaPreOpsurveysdoneFLAG_2').style['mix-blend-mode'] = 'normal';
+        var layer_MirfaPreOpsurveysdoneFLAG_2 = new L.geoJson.multiStyle(json_MirfaPreOpsurveysdoneFLAG_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_MirfaPreOpsurveysdoneFLAG_2',
+            layerName: 'layer_MirfaPreOpsurveysdoneFLAG_2',
+            pane: 'pane_MirfaPreOpsurveysdoneFLAG_2',
+            onEachFeature: pop_MirfaPreOpsurveysdoneFLAG_2,
+            styles: [style_MirfaPreOpsurveysdoneFLAG_2_0,style_MirfaPreOpsurveysdoneFLAG_2_1,]
+        });
+        bounds_group.addLayer(layer_MirfaPreOpsurveysdoneFLAG_2);
+        map.addLayer(layer_MirfaPreOpsurveysdoneFLAG_2);
+        function pop_MirfaMonitoringOpSurveysdoneFLAG_3(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Label'] !== null ? autolinker.link(feature.properties['Label'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Monitoring Surveys</strong><br />' + (feature.properties['MON_Survey'] !== null ? autolinker.link(feature.properties['MON_Survey'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        var pattern_MirfaMonitoringOpSurveysdoneFLAG_3_0 = new L.StripePattern({
+            weight: 0.7,
+            spaceWeight: 2.0,
+            color: '#1e4aec',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 315
+        });
+        pattern_MirfaMonitoringOpSurveysdoneFLAG_3_0.addTo(map);
+        function style_MirfaMonitoringOpSurveysdoneFLAG_3_0() {
+            return {
+                pane: 'pane_MirfaMonitoringOpSurveysdoneFLAG_3',
+                stroke: false,
+                fillOpacity: 1,
+                fillPattern: pattern_MirfaMonitoringOpSurveysdoneFLAG_3_0,
+                interactive: true,
+            }
+        }
+        function style_MirfaMonitoringOpSurveysdoneFLAG_3_1() {
+            return {
+                pane: 'pane_MirfaMonitoringOpSurveysdoneFLAG_3',
+                opacity: 1,
+                color: 'rgba(30,74,236,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_MirfaMonitoringOpSurveysdoneFLAG_3');
+        map.getPane('pane_MirfaMonitoringOpSurveysdoneFLAG_3').style.zIndex = 403;
+        map.getPane('pane_MirfaMonitoringOpSurveysdoneFLAG_3').style['mix-blend-mode'] = 'normal';
+        var layer_MirfaMonitoringOpSurveysdoneFLAG_3 = new L.geoJson.multiStyle(json_MirfaMonitoringOpSurveysdoneFLAG_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_MirfaMonitoringOpSurveysdoneFLAG_3',
+            layerName: 'layer_MirfaMonitoringOpSurveysdoneFLAG_3',
+            pane: 'pane_MirfaMonitoringOpSurveysdoneFLAG_3',
+            onEachFeature: pop_MirfaMonitoringOpSurveysdoneFLAG_3,
+            styles: [style_MirfaMonitoringOpSurveysdoneFLAG_3_0,style_MirfaMonitoringOpSurveysdoneFLAG_3_1,]
+        });
+        bounds_group.addLayer(layer_MirfaMonitoringOpSurveysdoneFLAG_3);
+        map.addLayer(layer_MirfaMonitoringOpSurveysdoneFLAG_3);
+        function pop_MirfaPostOpSurveysdoneFLAG_4(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Label'] !== null ? autolinker.link(feature.properties['Label'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Post Surveys</strong><br />' + (feature.properties['PostSurv'] !== null ? autolinker.link(feature.properties['PostSurv'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        var pattern_MirfaPostOpSurveysdoneFLAG_4_0 = new L.StripePattern({
+            weight: 0.7,
+            spaceWeight: 2.0,
+            color: '#1e9628',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 315
+        });
+        pattern_MirfaPostOpSurveysdoneFLAG_4_0.addTo(map);
+        function style_MirfaPostOpSurveysdoneFLAG_4_0() {
+            return {
+                pane: 'pane_MirfaPostOpSurveysdoneFLAG_4',
+                stroke: false,
+                fillOpacity: 1,
+                fillPattern: pattern_MirfaPostOpSurveysdoneFLAG_4_0,
+                interactive: true,
+            }
+        }
+        function style_MirfaPostOpSurveysdoneFLAG_4_1() {
+            return {
+                pane: 'pane_MirfaPostOpSurveysdoneFLAG_4',
+                opacity: 1,
+                color: 'rgba(30,150,40,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_MirfaPostOpSurveysdoneFLAG_4');
+        map.getPane('pane_MirfaPostOpSurveysdoneFLAG_4').style.zIndex = 404;
+        map.getPane('pane_MirfaPostOpSurveysdoneFLAG_4').style['mix-blend-mode'] = 'normal';
+        var layer_MirfaPostOpSurveysdoneFLAG_4 = new L.geoJson.multiStyle(json_MirfaPostOpSurveysdoneFLAG_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_MirfaPostOpSurveysdoneFLAG_4',
+            layerName: 'layer_MirfaPostOpSurveysdoneFLAG_4',
+            pane: 'pane_MirfaPostOpSurveysdoneFLAG_4',
+            onEachFeature: pop_MirfaPostOpSurveysdoneFLAG_4,
+            styles: [style_MirfaPostOpSurveysdoneFLAG_4_0,style_MirfaPostOpSurveysdoneFLAG_4_1,]
+        });
+        bounds_group.addLayer(layer_MirfaPostOpSurveysdoneFLAG_4);
+        map.addLayer(layer_MirfaPostOpSurveysdoneFLAG_4);
+            var abstract = new L.Control({'position':'bottomleft'});
+            abstract.onAdd = function (map) {
+                this._div = L.DomUtil.create('div',
+                'leaflet-control abstract');
+                this._div.id = 'abstract'
+
+                    abstract.show();
+                    return this._div;
+                };
+                abstract.show = function () {
+                    this._div.classList.remove("abstract");
+                    this._div.classList.add("abstractUncollapsed");
+                    this._div.innerHTML = 'TZ 8652 Environmental Team Surveys Map 2023-04-24';
+            };
+            abstract.addTo(map);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/MirfaPostOpSurveysdoneFLAG_4.png" /> Mirfa Post Op Surveys done (FLAG)': layer_MirfaPostOpSurveysdoneFLAG_4,'<img src="legend/MirfaMonitoringOpSurveysdoneFLAG_3.png" /> Mirfa Monitoring Op Surveys done (FLAG)': layer_MirfaMonitoringOpSurveysdoneFLAG_3,'<img src="legend/MirfaPreOpsurveysdoneFLAG_2.png" /> Mirfa Pre Op surveys done (FLAG)': layer_MirfaPreOpsurveysdoneFLAG_2,'<img src="legend/MirfaCoralReefs_1.png" /> Mirfa Coral Reefs': layer_MirfaCoralReefs_1,"Base Map Stamen Watercolor": layer_BaseMapStamenWatercolor_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        var i = 0;
+        layer_MirfaPreOpsurveysdoneFLAG_2.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['Label'] !== null?String('<div style="color: #000000; font-size: 10pt; font-weight: bold; font-family: \'Arial\', sans-serif;">' + layer.feature.properties['Label']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_MirfaPreOpsurveysdoneFLAG_2'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_MirfaMonitoringOpSurveysdoneFLAG_3.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['Label'] !== null?String('<div style="color: #000000; font-size: 10pt; font-weight: bold; font-family: \'Arial\', sans-serif;">' + layer.feature.properties['Label']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_MirfaMonitoringOpSurveysdoneFLAG_3'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_MirfaPostOpSurveysdoneFLAG_4.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['Label'] !== null?String('<div style="color: #000000; font-size: 10pt; font-weight: bold; font-family: \'Arial\', sans-serif;">' + layer.feature.properties['Label']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_MirfaPostOpSurveysdoneFLAG_4'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        L.ImageOverlay.include({
+            getBounds: function () {
+                return this._bounds;
+            }
+        });
+        resetLabels([layer_MirfaPreOpsurveysdoneFLAG_2,layer_MirfaMonitoringOpSurveysdoneFLAG_3,layer_MirfaPostOpSurveysdoneFLAG_4]);
+        map.on("zoomend", function(){
+            resetLabels([layer_MirfaPreOpsurveysdoneFLAG_2,layer_MirfaMonitoringOpSurveysdoneFLAG_3,layer_MirfaPostOpSurveysdoneFLAG_4]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_MirfaPreOpsurveysdoneFLAG_2,layer_MirfaMonitoringOpSurveysdoneFLAG_3,layer_MirfaPostOpSurveysdoneFLAG_4]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_MirfaPreOpsurveysdoneFLAG_2,layer_MirfaMonitoringOpSurveysdoneFLAG_3,layer_MirfaPostOpSurveysdoneFLAG_4]);
+        });
+        </script>
+    </body>
+</html>
